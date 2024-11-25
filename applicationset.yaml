@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: brian-test
+  namespace: argo
+spec:
+  goTemplate: true
+  #goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+      - environment: dev
+        path: DEV
+        url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: 'infra-bootstrap'
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-status-change.teams: channelName
+      namespace: argo
+    spec:
+      project: kkp-project
+      source:
+        path: guestbook
+        repoURL: https://github.com/argoproj/argocd-example-apps.git
+        targetRevision: master
+      destination:
+        server: '{{.url}}'
+        namespace: brian-{{.environment}}
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
