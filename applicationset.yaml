@@ -12,6 +12,9 @@ spec:
       - environment: dev
         path: DEV
         url: https://kubernetes.default.svc
+      - environment: sit
+        path: SIT
+        url: https://kubernetes.default.svc
   template:
     metadata:
       name: 'infra-bootstrap'
@@ -19,7 +22,7 @@ spec:
         notifications.argoproj.io/subscribe.on-sync-status-change.teams: channelName
       namespace: argo
     spec:
-      project: kkp-project
+      project: brian-test
       source:
         path: guestbook
         repoURL: https://github.com/argoproj/argocd-example-apps.git
