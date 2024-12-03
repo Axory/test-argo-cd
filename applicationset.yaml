@@ -15,6 +15,9 @@ spec:
       - environment: sit
         path: SIT
         url: https://kubernetes.default.svc
+      - environment: uat
+        path: SIT
+        url: https://kubernetes.default.svc
   template:
     metadata:
       name: 'infra-bootstrap-{{.environment}}'
