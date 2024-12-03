@@ -14,3 +14,9 @@ spec:
     path: .
     repoURL: https://github.com/Axory/test-argo-cd.git
     targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true  #cleaned up if removed from the source
+      selfHeal: true  #ensures resources are up-to-date
+    syncOptions:
+    - CreateNamespace=true
